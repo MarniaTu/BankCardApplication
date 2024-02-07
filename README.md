@@ -1,0 +1,1 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/8tbl9uoun9737y8v?svg=true)](https://ci.appveyor.com/project/MarniaTu/bankcardapplication)
