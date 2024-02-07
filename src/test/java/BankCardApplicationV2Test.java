@@ -70,7 +70,7 @@ public class BankCardApplicationV2Test {
         form.$("[data-test-id=name] input").setValue("Иванов-Петров Семен Васильевич");
         form.$("[data-test-id=phone] input").setValue("+79061236789");
         form.$("button").click();
-        $("[data-test-id=agreement]").shouldHave(attribute("class", "input_invalid"));
+        $("[data-test-id=agreement]").shouldHave(attribute("class", "checkbox checkbox_size_m checkbox_theme_alfa-on-white input_invalid"));
 
     }
 }
