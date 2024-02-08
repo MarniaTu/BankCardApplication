@@ -14,7 +14,7 @@ public class BankCardApplicationV2Test {
         SelenideElement form = $("form");
 
         form.$("button").click();
-        $("[data-test-id='phone'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+        $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
 
 
     }
