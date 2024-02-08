@@ -1,8 +1,7 @@
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -15,7 +14,7 @@ public class BankCardApplicationV2Test {
         SelenideElement form = $("form");
 
         form.$("button").click();
-        $(".input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
+        $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Поле обязательно для заполнения"));
 
 
     }
@@ -27,9 +26,11 @@ public class BankCardApplicationV2Test {
 
         SelenideElement form = $("form");
 
-        form.$("[data-test-id=name] input").setValue("Ivanov Semen");
+        form.$("[data-test-id='name'] input").setValue("Ivanov Semen");
+        form.$("[data-test-id='phone'] input").setValue("+79061236789");
+        form.$("[data-test-id='agreement']").click();
         form.$("button").click();
-        $(".input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
 
     }
 
@@ -40,9 +41,11 @@ public class BankCardApplicationV2Test {
 
         SelenideElement form = $("form");
 
-        form.$("[data-test-id=name] input").setValue("Иванов/Петров");
+        form.$("[data-test-id='name'] input").setValue("Иванов/Петров");
+        form.$("[data-test-id='phone'] input").setValue("+79061236789");
+        form.$("[data-test-id='agreement']").click();
         form.$("button").click();
-        $(".input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        $("[data-test-id='name'].input_invalid .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
 
     }
 
@@ -53,10 +56,11 @@ public class BankCardApplicationV2Test {
 
         SelenideElement form = $("form");
 
-        form.$("[data-test-id=name] input").setValue("Иванов-Петров Семен Васильевич");
-        form.$("[data-test-id=phone] input").setValue("89061236789");
+        form.$("[data-test-id='name'] input").setValue("Иванов-Петров Семен Васильевич");
+        form.$("[data-test-id='phone'] input").setValue("89061236789");
+        form.$("[data-test-id='agreement']").click();
         form.$("button").click();
-        $("[data-test-id=phone] .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        $("[data-test-id=phone].input_invalid .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
 
     }
 
@@ -67,10 +71,10 @@ public class BankCardApplicationV2Test {
 
         SelenideElement form = $("form");
 
-        form.$("[data-test-id=name] input").setValue("Иванов-Петров Семен Васильевич");
-        form.$("[data-test-id=phone] input").setValue("+79061236789");
+        form.$("[data-test-id='name'] input").setValue("Иванов-Петров Семен Васильевич");
+        form.$("[data-test-id='phone'] input").setValue("+79061236789");
         form.$("button").click();
-        $("[data-test-id=agreement]").shouldHave(attribute("class", "checkbox checkbox_size_m checkbox_theme_alfa-on-white input_invalid"));
+        $("[data-test-id='agreement'].input_invalid .checkbox__text").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных и разрешаю сделать запрос в бюро кредитных историй")).shouldBe(visible);
 
     }
 }
